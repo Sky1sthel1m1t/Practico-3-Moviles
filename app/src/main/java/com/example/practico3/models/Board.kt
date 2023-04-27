@@ -1,5 +1,7 @@
 package com.example.practico3.models
 
+import android.util.Log
+
 class Board {
     val boardSize = 4
     var score = 0
@@ -187,7 +189,29 @@ class Board {
     }
 
     private fun getPossiblesRowJoins(array: Array<Int>): Int {
-        val list = array.groupingBy { it }.eachCount().filter { it.value > 1 }.keys
+        var list = HashMap<Int, Int>()
+
+        for (num in array){
+            if (num != 0){
+                if (list.containsKey(num)){
+                    list[num] = list[num]!! + 1
+                }else{
+                    list[num] = 1
+                }
+            }
+        }
+
+        list = list.filterValues { it > 1 } as HashMap<Int, Int>
+
+        if (list.size == 1){
+            val value = list[list.keys.first()]
+            if (value != null) {
+                if (value % 2 == 0 && value > 2) {
+                    return value / 2
+                }
+            }
+        }
+
         return list.size
     }
 

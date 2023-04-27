@@ -46,7 +46,11 @@ class BoardComponent(context: Context?, attrs: AttributeSet?) : View(context, at
                 val color = getColor(value)
                 drawRect(canvas, x, y, width, height, color)
                 paint.color = Color.BLACK
-                canvas?.drawText(value.toString(), x + width / 2, y + height / 2, paint)
+
+                if (value != 0) {
+                    canvas?.drawText(value.toString(), x + width / 2, y + height / 2, paint)
+                }
+
                 x += width
             }
             y += height
